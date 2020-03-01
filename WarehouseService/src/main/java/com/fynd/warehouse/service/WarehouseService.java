@@ -21,6 +21,10 @@ public class WarehouseService {
 		return warehouse;
 	}
 
+	public Warehouse getWarehouse() {
+		return warehouse;
+	}
+
 	public String store(Long productCode, String color) {
 		
 		if(warehouse.getCapacity()==Arrays.asList(warehouse.getRacks()).stream().filter(Objects::nonNull).count())
