@@ -1,16 +1,15 @@
 package com.fynd.warehouse.service;
 
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import com.fynd.warehouse.WarehouseServiceApplication;
 
@@ -69,6 +68,22 @@ public class WarehouseServiceTest {
 		Assert.assertEquals(warehouseService.sell(7), "Invalid slot : 7");
 		warehouseService.sell(1);
 		Assert.assertNull(warehouseService.getWarehouse().getRacks()[0]);
+	}
+	
+	@Test
+	public void testproduct_codes_for_products_with_colour() {
+		warehouseService.create(2);
+		warehouseService.store(72527273070L,"White");
+		warehouseService.store(72527273071L, "Green");
+		assertEquals(Long.parseLong(warehouseService.product_codes_for_products_with_colour("White")),72527273070L);
+	}
+	
+	@Test
+	public void negativeTestproduct_codes_for_products_with_colour() {
+		warehouseService.create(2);
+		warehouseService.store(72527273070L,"White");
+		warehouseService.store(72527273071L, "Green");
+		assertEquals(warehouseService.product_codes_for_products_with_colour("Purple"),"");
 	}
 	
 }
