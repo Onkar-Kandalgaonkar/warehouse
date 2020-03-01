@@ -1,6 +1,7 @@
 package com.fynd.warehouse.service;
 
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
@@ -22,7 +23,7 @@ public class WarehouseService {
 
 	public String store(Long productCode, String color) {
 		
-		if(warehouse.getCapacity()==Arrays.asList(warehouse.getRacks()).stream().filter(rack-> null!=rack).count())
+		if(warehouse.getCapacity()==Arrays.asList(warehouse.getRacks()).stream().filter(Objects::nonNull).count())
 			return "Warehouse is full";
 		
 		Product product = new Product(productCode, color);
@@ -36,7 +37,8 @@ public class WarehouseService {
 				break;
 			}
 		}
-		System.out.println(Arrays.toString(warehouse.getRacks()));
+		//System.out.println(Arrays.toString(warehouse.getRacks()));
+		
 		return response;
 	}
 
@@ -44,21 +46,33 @@ public class WarehouseService {
 		if(slotNo-1<warehouse.getCapacity()) {
 			Rack rack = warehouse.getRacks()[slotNo-1];
 			if(rack!=null) warehouse.getRacks()[slotNo-1]=null;
-			System.out.println(Arrays.toString(warehouse.getRacks()));
+			//System.out.println(Arrays.toString(warehouse.getRacks()));
 			
 			return "Slot number "+(slotNo)+" is free";
 		}
-		System.out.println(Arrays.toString(warehouse.getRacks()));
+		//System.out.println(Arrays.toString(warehouse.getRacks()));
 		
 		return "Invalid slot : "+(slotNo);
 	}
 
 	public void status() {
-		Arrays.asList(warehouse.getRacks()).stream().filter(rack -> null!=rack).forEach(rack -> System.out.println(Arrays.asList(warehouse.getRacks()).indexOf(rack)+"\t"+rack.getProduct().getProductCode()+"\t"+rack.getProduct().getColor()));
+		System.out.println("Slot No.\tProduct Code\tColour");
+		Arrays.asList(warehouse.getRacks()).stream().filter(Objects::nonNull).forEach(rack -> System.out.println("\t"+(Arrays.asList(warehouse.getRacks()).indexOf(rack)+1)+"\t\t"+rack.getProduct().getProductCode()+"\t"+rack.getProduct().getColor()));
 	}
 	
 	public String product_codes_for_products_with_colour(String color) {
 		return Arrays.asList(warehouse.getRacks()).stream().filter(rack -> rack.getProduct().getColor().equals(color)).map(rack->rack.getProduct().getProductCode().toString()).collect(Collectors.joining(" , "));
+	}
+	
+	public String slot_numbers_for_products_with_colour(String color) {
+		Rack[] racks = warehouse.getRacks();
+		String slotNumbers = "";
+		for(int p=0;p<racks.length;p++) {
+			if(racks[p]!=null && racks[p].getProduct().getColor().equals(color)) {
+				slotNumbers+= String.valueOf(p+1)+",";
+			}
+		}
+		return slotNumbers.substring(0, slotNumbers.length()-1);
 	}
 
 	public String slot_number_for_product_code(Long productCode) {

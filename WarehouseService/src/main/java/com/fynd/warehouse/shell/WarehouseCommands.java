@@ -45,6 +45,12 @@ public class WarehouseCommands {
 		System.out.println(warehouseService.product_codes_for_products_with_colour(color));
 	}
 	
+	@ShellMethod("slot_numbers_for_products_with_colour.")
+	public void slot_numbers_for_products_with_colour(String color) {
+		System.out.println(warehouseService.slot_numbers_for_products_with_colour(color));
+		
+	}
+	
 	@ShellMethod("slot_number_for_product_code.")
 	public void slot_number_for_product_code(Long productCode) {
 		System.out.println(warehouseService.slot_number_for_product_code(productCode));
