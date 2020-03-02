@@ -25,3 +25,7 @@ Commands for building and running the projects:
    slot_numbers_for_products_with_colour Green
    slot_number_for_product_code 82537113174
    slot_number_for_product_code 82532222174
+   
+Note:
+Test cases : Kindly run the WarehouseServiceTest.java file as a junit test(Test Runner : JUNIT4)
+If we will run the test case by using by using maven test the application context also starts the CLI and we have to exit that using exit commands with exit commands then the test cases will run fine.(also have to uncomment the @SpringBootTest annotation)
