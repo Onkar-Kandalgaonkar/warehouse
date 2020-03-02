@@ -6,6 +6,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.ContextConfiguration;
@@ -18,8 +19,9 @@ import com.fynd.warehouse.WarehouseServiceApplication;
 @ContextConfiguration(classes={WarehouseServiceApplication.class})
 public class WarehouseServiceTest {
 
+	//If we do not want to run the test case as junit test uncomment @SpringBootTest and comment out below method
 	@TestConfiguration
-	static class UserServiceTestConfiguration {
+	static class WarehouseServiceTestConfiguration {
 
 		@Bean
 		public WarehouseService warehouseService() {
