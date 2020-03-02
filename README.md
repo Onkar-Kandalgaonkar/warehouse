@@ -6,8 +6,8 @@ Java 8+ and Maven should be installed on the system
 Commands for building and running the projects:
 1. Open terminal in the project root directory
 2. Run the following command for starting shell script
-   chmod 755 warehouse
-   ./warehouse
+   ~$ chmod 755 warehouse
+   ~$ ./warehouse
    The application should get build and should run with the spring shell(CLI)
 3. Use the following commands for testing the project(Also available in /resouces/shellcommands.txt)
    warehouse 6
