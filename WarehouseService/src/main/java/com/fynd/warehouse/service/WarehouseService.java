@@ -76,6 +76,7 @@ public class WarehouseService {
 				slotNumbers+= String.valueOf(p+1)+",";
 			}
 		}
+		if(slotNumbers.equals("")) return slotNumbers;
 		return slotNumbers.substring(0, slotNumbers.length()-1);
 	}
 

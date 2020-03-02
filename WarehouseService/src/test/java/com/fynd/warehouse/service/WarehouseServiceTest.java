@@ -29,6 +29,12 @@ public class WarehouseServiceTest {
 
 	@Autowired
 	WarehouseService warehouseService;
+	
+	private void initializeWarehouseWithProducts() {
+		warehouseService.create(2);
+		warehouseService.store(72527273070L,"White");
+		warehouseService.store(72527273071L, "Green");
+	}
 
 	@Test
 	public void testInitWareHouse() {
@@ -46,9 +52,7 @@ public class WarehouseServiceTest {
 	
 	@Test
 	public void negativeTestStore() {
-		warehouseService.create(2);
-		warehouseService.store(72527273070L,"White");
-		warehouseService.store(72527273071L, "Green");
+		initializeWarehouseWithProducts();
 		Assert.assertEquals(warehouseService.store(72527273071L, "Green"), "Warehouse is full");
 		Assert.assertEquals(warehouseService.getWarehouse().getRacks()[0].getProduct().getColor(),"White");
 	}
@@ -72,18 +76,38 @@ public class WarehouseServiceTest {
 	
 	@Test
 	public void testproduct_codes_for_products_with_colour() {
-		warehouseService.create(2);
-		warehouseService.store(72527273070L,"White");
-		warehouseService.store(72527273071L, "Green");
+		initializeWarehouseWithProducts();
 		assertEquals(Long.parseLong(warehouseService.product_codes_for_products_with_colour("White")),72527273070L);
-	}
+	}	
 	
 	@Test
 	public void negativeTestproduct_codes_for_products_with_colour() {
-		warehouseService.create(2);
-		warehouseService.store(72527273070L,"White");
-		warehouseService.store(72527273071L, "Green");
+		initializeWarehouseWithProducts();
 		assertEquals(warehouseService.product_codes_for_products_with_colour("Purple"),"");
+	}
+	
+	@Test
+	public void testslot_numbers_for_products_with_colour() {
+		initializeWarehouseWithProducts();
+		assertEquals(warehouseService.slot_numbers_for_products_with_colour("Green"),"1");
+	}
+	
+	@Test
+	public void negativeTestslot_numbers_for_products_with_colour() {
+		initializeWarehouseWithProducts();
+		assertEquals(warehouseService.slot_numbers_for_products_with_colour("Purple"),"");
+	}
+	
+	@Test
+	public void testslot_number_for_product_code() {
+		initializeWarehouseWithProducts();
+		assertEquals(warehouseService.slot_number_for_product_code(72527273070L),"1");
+	}
+	
+	@Test
+	public void negativeTestslot_number_for_product_code() {
+		initializeWarehouseWithProducts();
+		assertEquals(warehouseService.slot_number_for_product_code(72527273074L),"Not found");
 	}
 	
 }
