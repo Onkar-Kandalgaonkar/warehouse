@@ -64,11 +64,11 @@ public class WarehouseService {
 		Arrays.asList(warehouse.getRacks()).stream().filter(Objects::nonNull).forEach(rack -> System.out.println("\t"+(Arrays.asList(warehouse.getRacks()).indexOf(rack)+1)+"\t\t"+rack.getProduct().getProductCode()+"\t"+rack.getProduct().getColor()));
 	}
 	
-	public String product_codes_for_products_with_colour(String color) {
+	public String productCodesForProductsWithColour(String color) {
 		return Arrays.asList(warehouse.getRacks()).stream().filter(rack -> rack.getProduct().getColor().equals(color)).map(rack->rack.getProduct().getProductCode().toString()).collect(Collectors.joining(" , "));
 	}
 	
-	public String slot_numbers_for_products_with_colour(String color) {
+	public String slotNumbersForProductsWithColour(String color) {
 		Rack[] racks = warehouse.getRacks();
 		String slotNumbers = "";
 		for(int p=0;p<racks.length;p++) {
@@ -80,7 +80,7 @@ public class WarehouseService {
 		return slotNumbers.substring(0, slotNumbers.length()-1);
 	}
 
-	public String slot_number_for_product_code(Long productCode) {
+	public String slotNumberForProductCode(Long productCode) {
 		Rack[] racks = warehouse.getRacks();
 		for(int p=0;p<racks.length;p++) {
 			if(racks[p]!=null && racks[p].getProduct().getProductCode().equals(productCode)) {
